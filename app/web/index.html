@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>وكيل المحتوى الذكي — TikTok</title>
+<link rel="icon" href="/static/favicon.svg" type="image/svg+xml" />
+<link rel="stylesheet" href="/static/styles.css" />
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    <span class="logo">▶</span>
+    <div>
+      <h1>وكيل المحتوى الذكي</h1>
+      <p>اكتب الفكرة… والوكيل يصنع الفيديو أو الصور وينشرها على تيك توك</p>
+    </div>
+  </div>
+  <div class="pills" id="statusPills"></div>
+</header>
+
+<main class="layout">
+
+  <!-- ============ left: composer ============ -->
+  <section class="panel composer">
+    <h2>١. اصنع محتوى جديدًا</h2>
+
+    <label class="field">
+      <span>موضوع المحتوى</span>
+      <textarea id="topic" rows="3" placeholder="مثال: ٣ عادات صباحية تضاعف تركيزك"></textarea>
+    </label>
+
+    <div class="row">
+      <label class="field">
+        <span>النوع</span>
+        <select id="kind">
+          <option value="video">فيديو عمودي</option>
+          <option value="photo">ألبوم صور (Carousel)</option>
+        </select>
+      </label>
+      <label class="field">
+        <span>اللغة</span>
+        <select id="language">
+          <option value="ar">العربية</option>
+          <option value="en">English</option>
+          <option value="fr">Français</option>
+          <option value="es">Español</option>
+          <option value="tr">Türkçe</option>
+        </select>
+      </label>
+    </div>
+
+    <div class="row">
+      <label class="field">
+        <span>الأسلوب البصري</span>
+        <select id="style">
+          <option value="cinematic">سينمائي</option>
+          <option value="photoreal">واقعي</option>
+          <option value="anime">أنمي</option>
+          <option value="3d">ثلاثي الأبعاد</option>
+          <option value="minimal">بسيط / Minimal</option>
+          <option value="retro">ريترو</option>
+        </select>
+      </label>
+      <label class="field">
+        <span>عدد المشاهد: <b id="sceneCountLabel">5</b></span>
+        <input type="range" id="sceneCount" min="2" max="12" value="5" />
+      </label>
+    </div>
+
+    <label class="field">
+      <span>المدة التقريبية: <b id="secondsLabel">30</b> ثانية</span>
+      <input type="range" id="seconds" min="10" max="120" step="5" value="30" />
+    </label>
+
+    <div class="toggles">
+      <label class="switch"><input type="checkbox" id="voiceover" checked /><span>تعليق صوتي</span></label>
+      <label class="switch"><input type="checkbox" id="captions" checked /><span>نصوص على الشاشة</span></label>
+      <label class="switch"><input type="checkbox" id="music" checked /><span>موسيقى خلفية</span></label>
+    </div>
+
+    <details class="advanced">
+      <summary>خيارات متقدمة</summary>
+      <label class="field">
+        <span>الجمهور المستهدف</span>
+        <input id="audience" placeholder="مثال: طلاب جامعيون، رواد أعمال…" />
+      </label>
+      <label class="field">
+        <span>تعليمات إضافية للوكيل</span>
+        <textarea id="extra" rows="2" placeholder="مثال: نبرة مرحة، اذكر مثالًا واقعيًا في النهاية"></textarea>
+      </label>
+      <div class="row">
+        <label class="field">
+          <span>خصوصية المنشور</span>
+          <select id="privacy">
+            <option value="SELF_ONLY">خاص (SELF_ONLY)</option>
+            <option value="PUBLIC_TO_EVERYONE">عام للجميع</option>
+            <option value="MUTUAL_FOLLOW_FRIENDS">الأصدقاء المتابعون</option>
+            <option value="FOLLOWER_OF_CREATOR">المتابعون</option>
+          </select>
+        </label>
+        <label class="field">
+          <span>جدولة النشر (اختياري)</span>
+          <input type="datetime-local" id="scheduleAt" />
+        </label>
+      </div>
+      <label class="switch"><input type="checkbox" id="autoPublish" /><span>انشر تلقائيًا عند الانتهاء</span></label>
+    </details>
+
+    <button class="primary" id="createBtn">🚀 ابدأ الإنتاج</button>
+    <p class="hint" id="composerHint"></p>
+  </section>
+
+  <!-- ============ right: results ============ -->
+  <section class="panel results">
+    <div class="results-head">
+      <h2>٢. الأعمال</h2>
+      <button class="ghost" id="refreshBtn">تحديث</button>
+    </div>
+    <div id="jobs" class="jobs"></div>
+    <p class="empty" id="emptyState">لا توجد أعمال بعد — ابدأ بإنشاء محتوى من اليمين.</p>
+  </section>
+
+</main>
+
+<!-- ============ accounts bar ============ -->
+<section class="panel accounts">
+  <h2>٣. حسابات تيك توك</h2>
+  <div id="accounts" class="account-list"></div>
+  <div class="account-actions">
+    <button class="primary small" id="connectBtn">🔗 ربط حساب تيك توك</button>
+    <button class="ghost small" id="mockBtn">إنشاء حساب تجريبي (Mock)</button>
+  </div>
+  <p class="hint" id="tiktokHint"></p>
+</section>
+
+<footer>
+  <span>AI Video Agent</span> ·
+  <a href="/docs" target="_blank">توثيق REST API</a> ·
+  <a href="/api/providers" target="_blank">حالة المزوّدين</a>
+</footer>
+
+<div id="toast" class="toast"></div>
+<script src="/static/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.env
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Runtime data (generated media, database, tokens)
+data/
+!data/.gitkeep
+
+# Local music drop-in folder (user supplied, usually copyrighted)
+assets/music/*
+!assets/music/.gitkeep
+
+# OS
+.DS_Store
+Thumbs.db
